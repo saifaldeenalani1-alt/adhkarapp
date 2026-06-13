@@ -38,7 +38,8 @@ fun AddDhikrDialog(
 
     val categories = DhikrData.getCategories()
     val allItems = DhikrData.getAll()
-    val customItems = remember { PreferencesManager(LocalContext.current).getCustomDhikrItems() }
+    val context = LocalContext.current
+    val customItems = remember { PreferencesManager(context).getCustomDhikrItems() }
     val allItemsWithCustom = remember { allItems + customItems }
     val categoryItems: (String) -> List<DhikrItem> = { cat ->
         allItemsWithCustom.filter { it.category == cat }
@@ -154,7 +155,7 @@ fun AddDhikrDialog(
                     endHour = endHour,
                     endMinute = endMinute,
                     intervalMinutes = intervalMinutes,
-                    dhikrIds = selectedIds.toList(),
+                    dhikrIds = selectedIds,
                     repeatDays = alarm?.repeatDays ?: (1..7).toSet(),
                     displayDurationSeconds = displaySeconds,
                     playAudio = playAudio,

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adhkarapp.data.DhikrData
 import com.adhkarapp.data.PreferencesManager
 import com.adhkarapp.model.DhikrItem
 import com.adhkarapp.util.TtsHelper
