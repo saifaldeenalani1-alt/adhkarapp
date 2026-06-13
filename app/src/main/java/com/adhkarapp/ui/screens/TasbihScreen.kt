@@ -161,7 +161,7 @@ fun TasbihScreen() {
         AddCustomDhikrDialog(
             onDismiss = { showAddDhikrDialog = false },
             onSave = { item ->
-                prefs.addCustomDhikrItem(item)
+                prefs.saveCustomDhikrItem(item)
                 state = state.copy(dhikrItem = item)
                 prefs.saveTasbihState(state)
                 showAddDhikrDialog = false

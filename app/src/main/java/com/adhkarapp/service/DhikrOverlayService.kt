@@ -110,7 +110,7 @@ class DhikrOverlayService : Service() {
     private fun dismissOverlay(view: View) {
         if (!isShowing) return
         isShowing = false
-        handler.removeCallbacks(dismissRunnable)
+        dismissRunnable?.let { handler.removeCallbacks(it) }
         TtsHelper.stop()
         if (view.isAttachedToWindow) {
             try { windowManager.removeView(view) } catch (_: Exception) {}

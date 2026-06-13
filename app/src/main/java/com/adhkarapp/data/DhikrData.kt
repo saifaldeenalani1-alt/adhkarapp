@@ -67,4 +67,20 @@ object DhikrData {
     fun getById(id: String): DhikrItem? = all.find { it.id == id }
 
     fun getByIds(ids: Set<String>): List<DhikrItem> = all.filter { it.id in ids }
+
+    fun getCategories(): List<String> = listOf("صباح", "مساء", "عام", "نوم", "صلاة")
+
+    fun getAll(): List<DhikrItem> = all
+
+    fun getCategoryLabel(category: String): String = when (category) {
+        "صباح" -> "أذكار الصباح"
+        "مساء" -> "أذكار المساء"
+        "عام" -> "أذكار عامة"
+        "نوم" -> "أذكار النوم"
+        "صلاة" -> "أذكار الصلاة"
+        "custom" -> "أذكاري المخصصة"
+        else -> category
+    }
+
+    fun getByCategory(category: String): List<DhikrItem> = all.filter { it.category == category }
 }

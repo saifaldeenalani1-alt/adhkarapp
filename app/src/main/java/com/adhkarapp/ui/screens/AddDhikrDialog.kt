@@ -32,7 +32,7 @@ fun AddDhikrDialog(
     var playAudio by remember { mutableStateOf(alarm?.playAudio ?: false) }
     var audioRepeat by remember { mutableIntStateOf(alarm?.audioRepeatCount ?: 1) }
     var displaySeconds by remember { mutableIntStateOf(alarm?.displayDurationSeconds ?: 10) }
-    var selectedIds by remember { mutableStateOf(alarm?.dhikrIds?.toMutableSet() ?: mutableSetOf()) }
+    var selectedIds by remember { mutableStateOf<Set<String>>(alarm?.dhikrIds ?: emptySet()) }
 
     var showCategoryDialog by remember { mutableStateOf<String?>(null) }
 
@@ -155,7 +155,7 @@ fun AddDhikrDialog(
                     endMinute = endMinute,
                     intervalMinutes = intervalMinutes,
                     dhikrIds = selectedIds.toList(),
-                    repeatDays = alarm?.repeatDays ?: (1..7).toList(),
+                    repeatDays = alarm?.repeatDays ?: (1..7).toSet(),
                     displayDurationSeconds = displaySeconds,
                     playAudio = playAudio,
                     audioRepeatCount = audioRepeat
