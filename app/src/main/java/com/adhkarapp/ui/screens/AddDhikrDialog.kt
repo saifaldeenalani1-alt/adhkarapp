@@ -1,5 +1,6 @@
 package com.adhkarapp.ui.screens
 
+import android.app.TimePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,6 +36,8 @@ fun AddDhikrDialog(
     var selectedIds by remember { mutableStateOf<Set<String>>(alarm?.dhikrIds ?: emptySet()) }
 
     var showCategoryDialog by remember { mutableStateOf<String?>(null) }
+    var showStartTimePicker by remember { mutableStateOf(false) }
+    var showEndTimePicker by remember { mutableStateOf(false) }
 
     val categories = DhikrData.getCategories()
     val allItems = DhikrData.all
@@ -58,34 +61,20 @@ fun AddDhikrDialog(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(Modifier.height(8.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        OutlinedTextField(
-                            value = startHour.toString(),
-                            onValueChange = { v -> v.toIntOrNull()?.let { if (it in 0..23) startHour = it } },
-                            label = { Text("ساعة البداية") },
-                            modifier = Modifier.weight(1f)
-                        )
-                        OutlinedTextField(
-                            value = startMinute.toString(),
-                            onValueChange = { v -> v.toIntOrNull()?.let { if (it in 0..59) startMinute = it } },
-                            label = { Text("دقيقة البداية") },
-                            modifier = Modifier.weight(1f)
-                        )
+                    Button(
+                        onClick = { showStartTimePicker = true },
+                        modifier = Modifier.fillMaxWidth().height(56.dp)
+                    ) {
+                        Text("⏰ ${"%02d".format(startHour)}:${"%02d".format(startMinute)}",
+                            style = MaterialTheme.typography.titleLarge)
                     }
                     Spacer(Modifier.height(8.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        OutlinedTextField(
-                            value = endHour.toString(),
-                            onValueChange = { v -> v.toIntOrNull()?.let { if (it in 0..23) endHour = it } },
-                            label = { Text("ساعة النهاية") },
-                            modifier = Modifier.weight(1f)
-                        )
-                        OutlinedTextField(
-                            value = endMinute.toString(),
-                            onValueChange = { v -> v.toIntOrNull()?.let { if (it in 0..59) endMinute = it } },
-                            label = { Text("دقيقة النهاية") },
-                            modifier = Modifier.weight(1f)
-                        )
+                    Button(
+                        onClick = { showEndTimePicker = true },
+                        modifier = Modifier.fillMaxWidth().height(56.dp)
+                    ) {
+                        Text("🔚 ${"%02d".format(endHour)}:${"%02d".format(endMinute)}",
+                            style = MaterialTheme.typography.titleLarge)
                     }
                     Spacer(Modifier.height(8.dp))
                     OutlinedTextField(
@@ -208,5 +197,21 @@ fun AddDhikrDialog(
                 TextButton(onClick = { showCategoryDialog = null }) { Text("تم") }
             }
         )
+    }
+
+    if (showStartTimePicker) {
+        TimePickerDialog(
+            context,
+            { _, h, m -> startHour = h; startMinute = m; showStartTimePicker = false },
+            startHour, startMinute, true
+        ).show()
+    }
+
+    if (showEndTimePicker) {
+        TimePickerDialog(
+            context,
+            { _, h, m -> endHour = h; endMinute = m; showEndTimePicker = false },
+            endHour, endMinute, true
+        ).show()
     }
 }

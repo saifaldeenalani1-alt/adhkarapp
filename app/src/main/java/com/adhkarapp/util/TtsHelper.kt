@@ -22,6 +22,15 @@ object TtsHelper {
             if (status == TextToSpeech.SUCCESS) {
                 tts?.language = Locale("ar")
                 tts?.setSpeechRate(1.0f)
+                tts?.setPitch(0.75f)
+                val maleVoice = tts?.voices?.find { v ->
+                    v.locale.language == "ar" &&
+                    (v.name.contains("male", ignoreCase = true) ||
+                     !v.name.contains("female", ignoreCase = true))
+                }
+                if (maleVoice != null) {
+                    tts?.voice = maleVoice
+                }
                 initialized = true
                 onReady()
             }
