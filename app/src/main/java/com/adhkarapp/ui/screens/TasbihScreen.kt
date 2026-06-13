@@ -181,7 +181,7 @@ fun TasbihSettingsDialog(
 ) {
     val context = LocalContext.current
     val prefs = remember { PreferencesManager(context) }
-    val allItems = remember { DhikrData.getAll() }
+    val allItems = remember { DhikrData.all }
     val customItems = remember { prefs.getCustomDhikrItems() }
     val allWithCustom = remember { allItems + customItems }
     var selected by remember { mutableStateOf(currentDhikr) }

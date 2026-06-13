@@ -37,7 +37,7 @@ fun AddDhikrDialog(
     var showCategoryDialog by remember { mutableStateOf<String?>(null) }
 
     val categories = DhikrData.getCategories()
-    val allItems = DhikrData.getAll()
+    val allItems = DhikrData.all
     val context = LocalContext.current
     val customItems = remember { PreferencesManager(context).getCustomDhikrItems() }
     val allItemsWithCustom = remember { allItems + customItems }

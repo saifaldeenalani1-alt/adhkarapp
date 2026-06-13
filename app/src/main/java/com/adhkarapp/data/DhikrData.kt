@@ -70,8 +70,6 @@ object DhikrData {
 
     fun getCategories(): List<String> = listOf("صباح", "مساء", "عام", "نوم", "صلاة")
 
-    fun getAll(): List<DhikrItem> = all
-
     fun getCategoryLabel(category: String): String = when (category) {
         "صباح" -> "أذكار الصباح"
         "مساء" -> "أذكار المساء"
